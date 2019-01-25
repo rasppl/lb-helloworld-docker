@@ -6,11 +6,19 @@
 
 The project was tested against:
 
-- Docker 2.0.0.2
-- NodeJS 11.7.0
+- docker 2.0.0.2
+- node: 10.12.0
 
-## Running npm task in docker
+## Starting the application in docker
 
 ``` sh
-task npm <command>
+./d node .
+```
+
+This will bind container port 3000 to localhost port 3000
+
+## Running arbitrary npm task in docker
+
+``` sh
+./d npm <command>
 ```
