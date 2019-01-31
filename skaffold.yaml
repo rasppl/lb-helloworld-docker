@@ -7,7 +7,7 @@ build:
     docker: {}
   tagPolicy:
     envTemplate:
-      template: '{{.DOCKER_REGISTRY}}/rasppl/genuine-footing-203813:{{.VERSION}}'
+      template: '{{.DOCKER_REGISTRY}}/rasppl/lb-helloworld-docker:{{.VERSION}}'
   local: {}
 deploy:
   kubectl: {}
@@ -18,13 +18,13 @@ profiles:
     - docker: {}
     tagPolicy:
       envTemplate:
-        template: '{{.DOCKER_REGISTRY}}/rasppl/genuine-footing-203813:{{.DIGEST_HEX}}'
+        template: '{{.DOCKER_REGISTRY}}/rasppl/lb-helloworld-docker:{{.DIGEST_HEX}}'
     local: {}
   deploy:
     helm:
       releases:
-      - name: genuine-footing-203813
-        chartPath: charts/genuine-footing-203813
+      - name: lb-helloworld-docker
+        chartPath: charts/lb-helloworld-docker
         setValueTemplates:
-          image.repository: '{{.DOCKER_REGISTRY}}/rasppl/genuine-footing-203813'
+          image.repository: '{{.DOCKER_REGISTRY}}/rasppl/lb-helloworld-docker'
           image.tag: '{{.DIGEST_HEX}}'

@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment {
     ORG = 'rasppl'
-    APP_NAME = 'genuine-footing-203813'
+    APP_NAME = 'lb-helloworld-docker'
     CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
   }
   stages {
@@ -31,7 +31,7 @@ pipeline {
         branch 'master'
       }
       steps {
-        git 'https://github.com/rasppl/genuine-footing-203813.git'
+        git 'https://github.com/rasppl/lb-helloworld-docker.git'
 
         // so we can retrieve the version in later steps
         sh "echo \$(jx-release-version) > VERSION"
@@ -47,7 +47,7 @@ pipeline {
         branch 'master'
       }
       steps {
-        dir('./charts/genuine-footing-203813') {
+        dir('./charts/lb-helloworld-docker') {
           sh "jx step changelog --batch-mode --version v\$(cat ../../VERSION)"
 
           // release the helm chart

@@ -1,6 +1,6 @@
 CHART_REPO := http://jenkins-x-chartmuseum:8080
 CURRENT=$(pwd)
-NAME := genuine-footing-203813
+NAME := lb-helloworld-docker
 OS := $(shell uname)
 RELEASE_VERSION := $(shell cat ../../VERSION)
 
@@ -36,7 +36,7 @@ ifeq ($(OS),Darwin)
 	sed -i "" -e "s/tag:.*/tag: $(RELEASE_VERSION)/" values.yaml
 else ifeq ($(OS),Linux)
 	sed -i -e "s/version:.*/version: $(RELEASE_VERSION)/" Chart.yaml
-	sed -i -e "s|repository:.*|repository: $(DOCKER_REGISTRY)\/rasppl\/genuine-footing-203813|" values.yaml
+	sed -i -e "s|repository:.*|repository: $(DOCKER_REGISTRY)\/rasppl\/lb-helloworld-docker|" values.yaml
 	sed -i -e "s/tag:.*/tag: $(RELEASE_VERSION)/" values.yaml
 else
 	echo "platfrom $(OS) not supported to release from"

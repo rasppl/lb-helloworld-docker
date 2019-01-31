@@ -12,5 +12,5 @@ dependencies:
   # !! "alias: preview" must be last entry in dependencies array !!
   # !! Place custom dependencies above !!
 - alias: preview
-  name: genuine-footing-203813
-  repository: file://../genuine-footing-203813
+  name: lb-helloworld-docker
+  repository: file://../lb-helloworld-docker
