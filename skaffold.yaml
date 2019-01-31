@@ -1,0 +1,30 @@
+apiVersion: skaffold/v1beta2
+kind: Config
+build:
+  artifacts:
+  - image: changeme
+    context: .
+    docker: {}
+  tagPolicy:
+    envTemplate:
+      template: '{{.DOCKER_REGISTRY}}/rasppl/genuine-footing-203813:{{.VERSION}}'
+  local: {}
+deploy:
+  kubectl: {}
+profiles:
+- name: dev
+  build:
+    artifacts:
+    - docker: {}
+    tagPolicy:
+      envTemplate:
+        template: '{{.DOCKER_REGISTRY}}/rasppl/genuine-footing-203813:{{.DIGEST_HEX}}'
+    local: {}
+  deploy:
+    helm:
+      releases:
+      - name: genuine-footing-203813
+        chartPath: charts/genuine-footing-203813
+        setValueTemplates:
+          image.repository: '{{.DOCKER_REGISTRY}}/rasppl/genuine-footing-203813'
+          image.tag: '{{.DIGEST_HEX}}'
