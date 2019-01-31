@@ -1,0 +1,182 @@
+Step: build-step-credential-initializer:
+
+{"level":"warn","ts":1548962003.7157004,"logger":"fallback-logger","caller":"logging/config.go:65","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/test\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1548962003.7172713,"logger":"fallback-logger","caller":"creds-init/main.go:40","msg":"Credentials initialized."}
+Step: build-step-git-source-0:
+
+{"level":"warn","ts":1548962004.7256231,"logger":"fallback-logger","caller":"logging/config.go:65","msg":"Fetch GitHub commit ID from kodata failed: \"ref: refs/heads/test\" is not a valid GitHub commit ID"}
+{"level":"info","ts":1548962005.9328878,"logger":"fallback-logger","caller":"git-init/main.go:92","msg":"Successfully cloned \"https://github.com/rasppl/lb-helloworld-docker.git\" @ \"16cacdcf64d16c1a9149d76ebefd04b2165c854f\" in path \"/workspace\""}
+Step: build-step-jenkins:
+
+Picked up _JAVA_OPTIONS: -Xmx400m
+Started
+Running in Durability level: PERFORMANCE_OPTIMIZED
+  18.226 [id=31]	WARNING	i.f.k.c.i.VersionUsageUtils#alert: The client is using resource type 'customresourcedefinitions' with unstable version 'v1beta1'
+[Pipeline] node
+Running on Jenkins in /tmp/jenkinsTests.tmp/jenkins7678193333436038398test/workspace/job
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withCredentials
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (CI Build and push snapshot)
+Stage "CI Build and push snapshot" skipped due to when conditional
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Release)
+[Pipeline] git
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/rasppl/lb-helloworld-docker.git # timeout=10
+Fetching upstream changes from https://github.com/rasppl/lb-helloworld-docker.git
+ > git --version # timeout=10
+ > git fetch --tags --progress https://github.com/rasppl/lb-helloworld-docker.git +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+ > git rev-parse refs/remotes/origin/origin/master^{commit} # timeout=10
+Checking out Revision 16cacdcf64d16c1a9149d76ebefd04b2165c854f (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 16cacdcf64d16c1a9149d76ebefd04b2165c854f
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D master # timeout=10
+ > git checkout -b master 16cacdcf64d16c1a9149d76ebefd04b2165c854f
+Commit message: "Merge pull request #2 from rasppl/bugfix/1-port-3000"
+First time build. Skipping changelog.
+[Pipeline] sh
++ jx-release-version
++ echo 0.0.3
+[Pipeline] sh
++ cat VERSION
++ jx step tag --version 0.0.3
+Tag v0.0.3 created and pushed to remote origin
+[Pipeline] sh
++ npm install
+added 433 packages in 10.318s
+[Pipeline] sh
++ CI=true DISPLAY=:99 npm test
+
+> lb-hello-docker@1.0.0 test /tmp/jenkinsTests.tmp/jenkins7678193333436038398test/workspace/job
+> echo "No tests specified"
+
+No tests specified
+
+> lb-hello-docker@1.0.0 posttest /tmp/jenkinsTests.tmp/jenkins7678193333436038398test/workspace/job
+> npm run lint
+
+
+> lb-hello-docker@1.0.0 lint /tmp/jenkinsTests.tmp/jenkins7678193333436038398test/workspace/job
+> eslint .
+
+[Pipeline] sh
++ cat VERSION
++ export VERSION=0.0.3
++ skaffold build -f skaffold.yaml
+time="2019-01-31T19:14:22Z" level=warning msg="config version (skaffold/v1beta2) out of date: upgrading to latest (skaffold/v1beta3)"
+Starting build...
+Building [changeme]...
+Sending build context to Docker daemon  436.2kB
+Step 1/7 : FROM node:10.12.0-alpine
+ ---> 7ca2f9cb5536
+Step 2/7 : WORKDIR /usr/src
+ ---> Using cache
+ ---> e4ceb47ea3b2
+Step 3/7 : COPY package*.json ./
+ ---> Using cache
+ ---> eacc19bdcdc6
+Step 4/7 : RUN npm install
+ ---> Using cache
+ ---> 5d376ff3a891
+Step 5/7 : COPY . .
+ ---> a26a09d10110
+Step 6/7 : EXPOSE 3000
+ ---> Running in 7acf2f120ea7
+ ---> 3d098de45209
+Step 7/7 : CMD node .
+ ---> Running in 6fe80325a76a
+ ---> e8a0d5cb07b8
+Successfully built e8a0d5cb07b8
+The push refers to a repository [10.59.241.53:5000/rasppl/lb-helloworld-docker]
+b818b9c4a0f8: Preparing
+a5017176bc26: Preparing
+964a1ba9417a: Preparing
+94139ec2e437: Preparing
+89099b8fbac6: Preparing
+cb18274b2dd1: Preparing
+df64d3292fd6: Preparing
+cb18274b2dd1: Waiting
+df64d3292fd6: Waiting
+a5017176bc26: Layer already exists
+94139ec2e437: Layer already exists
+964a1ba9417a: Layer already exists
+cb18274b2dd1: Layer already exists
+89099b8fbac6: Layer already exists
+df64d3292fd6: Layer already exists
+b818b9c4a0f8: Pushed
+0.0.3: digest: sha256:0608f1894897e9097d801158f373032cf025bca38d0306e4ce170e376b100c18 size: 1789
+Build complete in 1.873938758s
+Starting test...
+Test complete in 4.767µs
+changeme -> 10.59.241.53:5000/rasppl/lb-helloworld-docker:0.0.3
+[Pipeline] sh
++ cat VERSION
++ jx step post build --image 10.59.241.53:5000/rasppl/lb-helloworld-docker:0.0.3
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Promote to Environments)
+[Pipeline] dir
+Running in /tmp/jenkinsTests.tmp/jenkins7678193333436038398test/workspace/job/charts/lb-helloworld-docker
+[Pipeline] {
+[Pipeline] sh
++ cat ../../VERSION
++ jx step changelog --batch-mode --version v0.0.3
+Converted /tmp/jenkinsTests.tmp/jenkins7678193333436038398test/workspace/job/charts/lb-helloworld-docker to an unshallow repository
+Generating change log from git ref 16cacdcf64d16c1a9149d76ebefd04b2165c854f => 74dd9ad439baaf45fb22bac7d8b9bddd178de244
+Failed to enrich commits with issues: User.jenkins.io "" is invalid: metadata.name: Required value: name or generateName is required
+Failed to enrich commits with issues: User.jenkins.io "" is invalid: metadata.name: Required value: name or generateName is required
+Finding issues in commit messages using git format
+No release found for rasppl/lb-helloworld-docker and tag v0.0.3 so creating a new release
+Updated the release information at https://github.com/rasppl/lb-helloworld-docker/releases/tag/v0.0.3
+generated: /tmp/jenkinsTests.tmp/jenkins7678193333436038398test/workspace/job/charts/lb-helloworld-docker/templates/release.yaml
+Created Release lb-helloworld-docker-0-0-3 resource in namespace jx
+Updating PipelineActivity rasppl-lb-helloworld-docker-master-4 with version 0.0.3
+Updated PipelineActivities rasppl-lb-helloworld-docker-master-4 with release notes URL: https://github.com/rasppl/lb-helloworld-docker/releases/tag/v0.0.3
+[Pipeline] sh
++ jx step helm release
+No $CHART_REPOSITORY defined so using the default value of: http://jenkins-x-chartmuseum:8080
+Adding missing Helm repo: jenkins-x http://chartmuseum.jenkins-x.io
+Successfully added Helm repository jenkins-x.
+Adding missing Helm repo: releases http://jenkins-x-chartmuseum:8080
+Successfully added Helm repository releases.
+No $CHART_REPOSITORY defined so using the default value of: http://jenkins-x-chartmuseum:8080
+Uploading chart file lb-helloworld-docker-0.0.3.tgz to http://jenkins-x-chartmuseum:8080/api/charts
+Received 201 response: {"saved":true}
+[Pipeline] sh
++ cat ../../VERSION
++ jx promote -b --all-auto --timeout 1h --version 0.0.3
+prow based install so skip waiting for the merge of Pull Requests to go green as currently there is an issue with gettingstatuses from the PR, see https://github.com/jenkins-x/jx/issues/2410
+Promoting app lb-helloworld-docker version 0.0.3 to namespace jx-staging
+Created Pull Request: https://github.com/rasppl/environment-thehumans-dev-staging/pull/2
+
+Failed to query the Pull Request last commit status for https://github.com/rasppl/environment-thehumans-dev-staging/pull/2 ref 8cdcf51bd403abcfe4ef20d80a1cb54757cf776b Could not find a status for repository rasppl/environment-thehumans-dev-staging with ref 8cdcf51bd403abcfe4ef20d80a1cb54757cf776b
+Failed to merge the Pull Request https://github.com/rasppl/environment-thehumans-dev-staging/pull/2 due to PUT https://api.github.com/repos/rasppl/environment-thehumans-dev-staging/pulls/2/merge: 405 Base branch was modified. Review and try the merge again. [] maybe I don't have karma?
+Pull Request https://github.com/rasppl/environment-thehumans-dev-staging/pull/2 is merged at sha 5b9c8756f44a81ba161107cd7d61ee5c994ff48b
+Pull Request merged but we are not waiting for the update pipeline to complete!
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
