@@ -12,7 +12,7 @@ The project was tested against:
 ## Starting the application in docker
 
 ``` sh
-./d node .
+./dr node .
 ```
 
 This will bind container port 3000 to localhost port 3000
@@ -20,5 +20,5 @@ This will bind container port 3000 to localhost port 3000
 ## Running arbitrary npm task in docker
 
 ``` sh
-./d npm <command>
+./dr npm <command>
 ```
